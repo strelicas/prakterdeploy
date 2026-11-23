@@ -39,6 +39,9 @@ async function PostContent({ params }: { params: Promise<{ id: string }> }) {
         <Link href="/" className="btn btn-secondary">
           Back
         </Link>
+        <Link href={`/post/${post.id}/edit`} className="btn btn-warning">
+          Edit
+        </Link>
         <DeleteButton id={post.id} />
       </div>
     </>
