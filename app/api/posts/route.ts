@@ -1,6 +1,7 @@
 import { db } from '@/db';
 import { posts } from '@/db/schema';
 import { desc } from 'drizzle-orm';
+import { revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -17,5 +18,6 @@ export async function POST(req: Request) {
   }
 
   const newPost = await db.insert(posts).values({ title, content }).returning();
+  revalidateTag('posts', 'max');
   return NextResponse.json(newPost, { status: 201 });
-} 
+}
