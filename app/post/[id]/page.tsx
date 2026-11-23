@@ -14,7 +14,11 @@ async function PostContent({ params }: { params: Promise<{ id: string }> }) {
     notFound();
   }
 
-  const post = await db.select().from(posts).where(eq(posts.id, postId)).get();
+  const [post] = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.id, postId))
+    .limit(1);
 
   if (!post) {
     notFound();

@@ -15,7 +15,11 @@ export async function GET(
     return NextResponse.json({ error: 'Invalid post ID' }, { status: 400 });
   }
 
-  const post = await db.select().from(posts).where(eq(posts.id, postId)).get();
+  const [post] = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.id, postId))
+    .limit(1);
   if (!post) {
     return NextResponse.json({ error: 'Post not found' }, { status: 404 });
   }
