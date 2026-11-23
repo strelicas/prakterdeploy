@@ -9,12 +9,17 @@ export default function CreatePost() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await fetch('/api/posts', {
+    const res = await fetch('/api/posts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, content }),
     });
+    if (!res.ok) {
+      alert('Gagal menyimpan post.');
+      return;
+    }
     router.push('/');
+    router.refresh();
   };
 
   return (
